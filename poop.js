@@ -2,6 +2,9 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var twitter = require('twitter');
+var app = express();
+
+app.set('port', (process.env.PORT || 5000));
 var url = "http://www.winnipeg.ca/waterandwaste/sewage/service_int.stm"
 
 var secret = {
