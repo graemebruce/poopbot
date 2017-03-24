@@ -1,0 +1,20 @@
+{
+  "name": "poopbot",
+  "version": "1.0.0",
+  "description": "auto tweet evert time City of Winnipeg reports sewage spilled into river",
+
+  "dependencies": {
+   "cheerio": "^0.22.0",
+   "request": "^2.81.0",
+   "twitter": "1.7.0"
+ },
+
+
+
+  "main": "poop.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
