@@ -1,9 +1,7 @@
 //Dependencies
-var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
 var twitter = require('twitter');
-var fs = require('fs');
 var url = "http://www.winnipeg.ca/waterandwaste/sewage/service_int.stm"
 
 var secret = {
