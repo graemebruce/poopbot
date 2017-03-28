@@ -63,9 +63,9 @@ request(url, function(err, resp, body) {
     }
     // Raw response object.
   });
-  console.log("There is poop");
- } else {
   console.log(data);
+ } else {
+  console.log("there is no new poop");
  }
 
 
