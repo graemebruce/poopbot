@@ -63,17 +63,9 @@ request(url, function(err, resp, body) {
     }
     // Raw response object.
   });
-  console.log("We have a new poop!");
+  console.log("There is poop!");
  } else {
-  Twitter.post('statuses/update', {
-    status: "Hi!"
-  }, function(error, tweet, response) {
-    if (error) {
-      console.log(error);
-    }
-    // Raw response object.
-  });
-  console.log("New tweet: HI!");
+  console.log("No new tweets today.");
  }
 
 
