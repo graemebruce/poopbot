@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 var request = require('request');
 var cheerio = require('cheerio');
 var twitter = require('twitter');
@@ -12,7 +13,7 @@ var secret = {
   consumer_secret: 'hzl8snBJ7vpcQC8bjqbB9YfbGAJTeyXQFVamh52hsKkmBxb9aQ',
   access_token_key: '845065226827509760-8v0QKpuJ1Mb4ELiKtb3vTxZc2GZ4UZQ',
   access_token_secret: 'w6J2hlmtwAUY4YwvNTEUW62Y9HSbFShZQqZ9jsIxAx4hE'
-}
+};
 var Twitter = new twitter(secret);
 
 
@@ -44,7 +45,7 @@ request(url, function(err, resp, body) {
     var poopLocationText = poopLocation.text();
     var poopAmountText = poopAmount.text();
     if (poopAmountText === "Unknown") {
-      poopAmountText = "an unknown amount of poop"
+      poopAmountText = "an unknown amount of poop";
     }
     var poopDurationText = poopDuration.text();
     var poopCauseText = poopCause.text();
@@ -62,7 +63,7 @@ request(url, function(err, resp, body) {
     }
     // Raw response object.
   });
-  console.log("We have a new poop!")
+  console.log("We have a new poop!");
  } else {
   Twitter.post('statuses/update', {
     status: "Hi!"
@@ -72,5 +73,8 @@ request(url, function(err, resp, body) {
     }
     // Raw response object.
   });
-  console.log("New tweet: HI!")
+  console.log("New tweet: HI!");
  }
+
+
+  });
