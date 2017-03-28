@@ -52,17 +52,22 @@ request(url, function(err, resp, body) {
 
 
      if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
-  /* Twitter.post('statuses/update', {
+   Twitter.post('statuses/update', {
     status: data
   }, function(error, tweet, response) {
     if (error) {
       console.log(error);
     }
-    // Raw response object.
-  }); */
+  }); 
   console.log("We have a new poop!")
  } else {
-  console.log("No new poops today")
+  Twitter.post('statuses/update', {
+    status: "hi"
+  }, function(error, tweet, response) {
+    if (error) {
+      console.log(error);
+    }
+  });
  }
 
 
