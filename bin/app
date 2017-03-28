@@ -45,13 +45,13 @@ request(url, function(err, resp, body) {
     var poopLocationText = poopLocation.text();
     var poopAmountText = poopAmount.text();
     if (poopAmountText === "Unknown") {
-      poopAmountText = "an unknown amount of poop";
+      poopAmountText = "an unknown amount";
     }
     var poopDurationText = poopDuration.text();
     var poopCauseText = poopCause.text();
 
 
-    var data = 'On ' + poopDateText + ', ' + poopAmountText + ' was released at ' + poopLocationText + poopEmoji;
+    var data = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText + poopEmoji;
 
 
   if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
@@ -63,9 +63,9 @@ request(url, function(err, resp, body) {
     }
     // Raw response object.
   });
-  console.log("There is poop!");
+  console.log("There is poop");
  } else {
-  console.log("No new tweets today.");
+  console.log(data);
  }
 
 
