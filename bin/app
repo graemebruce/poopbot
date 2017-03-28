@@ -1,9 +1,10 @@
-//Dependencies
 var request = require('request');
 var cheerio = require('cheerio');
 var twitter = require('twitter');
+var url = "http://www.winnipeg.ca/waterandwaste/sewage/service_int.stm";
 
-var url = "http://www.winnipeg.ca/waterandwaste/sewage/service_int.stm"
+
+var poopEmoji = String.fromCharCode(0xD83D,0xDCA9);
 
 var secret = {
   consumer_key: 'rOP6l7AbS9YShLnCW6Fb38YPg',
@@ -48,51 +49,27 @@ request(url, function(err, resp, body) {
     var poopCauseText = poopCause.text();
 
 
-    var data = 'On ' + poopDateText + ', ' + poopAmountText + ' was released at ' + poopLocationText;
+    var data = 'On ' + poopDateText + ', ' + poopAmountText + ' was released at ' + poopLocationText + poopEmoji;
 
 
-     if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
-   Twitter.post('statuses/update', {
-    status: data
-  }, function(error, tweet, response) {
+  if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
+    Twitter.post('statuses/update', {
+      status: data
+    }, function(error, tweet, response) {
     if (error) {
       console.log(error);
     }
-  }); 
+    // Raw response object.
+  });
   console.log("We have a new poop!")
  } else {
   Twitter.post('statuses/update', {
-    status: "hi"
+    status: "Hi!"
   }, function(error, tweet, response) {
     if (error) {
       console.log(error);
     }
+    // Raw response object.
   });
+  console.log("New tweet: HI!")
  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-    
-
-   
-
-  })
-  // });
