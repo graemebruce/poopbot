@@ -9,12 +9,6 @@
    "twitter": "1.7.0"
  },
 
-
-
-  "main": "poop.js",
-  "scripts": {
-    "start": "poop.js"
-  },
   "author": "",
   "license": "ISC"
 }
