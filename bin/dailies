@@ -80,8 +80,8 @@ request(url, function(err, resp, body) {
     var maskEmoji = String.fromCharCode(0xD83D, 0xDE37);
     var exclaims = ['Gross!', 'Bleh!', 'Ew!', 'Gah!', 'Barf!', 'Sick!', 'Yuck!', 'Foul!', 'Ack!', 'Ugh!', 'Grody!', screamEmoji, maskEmoji];
     var exclaim = exclaims[Math.floor(Math.random() * exclaims.length)];
-    var twittertextgrey = "In the last 24 hours, sewage *may* have flowed into the city's rivers for " + greyTimeHours + greyTimeMinutes + ". " + exclaim + " " + poopEmoji;
-    var twittertextblack = "In the last 24 hours, sewage *probably* flowed into the city's rivers for " + blackTimeHours + blackTimeMinutes + ". " + exclaim + " " + poopEmoji;
+    var twittertextgrey = "In the last 24 hours, sewage *may* have flowed into #Winnipeg's rivers for " + greyTimeHours + greyTimeMinutes + ". " + exclaim + " " + poopEmoji;
+    var twittertextblack = "In the last 24 hours, sewage *probably* flowed into #Winnipeg's rivers for " + blackTimeHours + blackTimeMinutes + ". " + exclaim + " " + poopEmoji;
     if (blackTotalInMinutes === 0 && greyTotalInMinutes === 0) {
     console.log("There is no new data");
   } else if (blackTotalInMinutes === 0 && greyTotalInMinutes > 1) {
