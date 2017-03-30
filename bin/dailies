@@ -105,13 +105,6 @@ request(url, function(err, resp, body) {
     console.log(twittertextblack);
   } else {
     Twitter.post('statuses/update', {
-        status: twittertextgrey
-    }, function(error, tweet, response) {
-        if (error) {
-            console.log(error);
-        }
-    });
-    Twitter.post('statuses/update', {
         status: twittertextblack
     }, function(error, tweet, response) {
         if (error) {
