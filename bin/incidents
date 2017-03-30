@@ -4,6 +4,8 @@ var request = require('request');
 var cheerio = require('cheerio');
 var twitter = require('node-twitter');
 var url = "http://www.winnipeg.ca/waterandwaste/sewage/service_int.stm";
+
+console.log("Running incidents task -- this message is consoled in bin/incidents");
 var twitterRestClient = new twitter.RestClient('rOP6l7AbS9YShLnCW6Fb38YPg', 'hzl8snBJ7vpcQC8bjqbB9YfbGAJTeyXQFVamh52hsKkmBxb9aQ', '845065226827509760-8v0QKpuJ1Mb4ELiKtb3vTxZc2GZ4UZQ', 'w6J2hlmtwAUY4YwvNTEUW62Y9HSbFShZQqZ9jsIxAx4hE');
 
 
