@@ -5,6 +5,7 @@ var cheerio = require('cheerio');
 var twitter = require('twitter');
 var url = "http://www.winnipeg.ca/waterandwaste/sewage/service_int.stm";
 
+console.log("Running incidents task -- this message is consoled in bin/incidents");
 
 var poopEmoji = String.fromCharCode(0xD83D,0xDCA9);
 
