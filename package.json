@@ -6,7 +6,8 @@
   "dependencies": {
    "cheerio": "^0.22.0",
    "request": "^2.81.0",
-   "twitter": "1.7.0"
+   "twitter": "1.7.0",
+   "node-twitter": "0.5.3"
  },
 
   "author": "",
