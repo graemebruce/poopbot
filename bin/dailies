@@ -5,6 +5,7 @@ var cheerio = require('cheerio');
 var twitter = require('twitter');
 var url = "http://winnipeg.ca/waterandwaste/sewage/overflow/previous24.stm";
 
+console.log("Running dailies task -- this message is consoled in bin/dailies");
 
 var secret = {
   consumer_key: 'rOP6l7AbS9YShLnCW6Fb38YPg',
