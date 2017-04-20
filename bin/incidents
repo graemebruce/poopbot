@@ -1,71 +1,124 @@
 #!/usr/bin/env node
 
+
+
+
+
+
 var request = require('request');
 var cheerio = require('cheerio');
-var twitter = require('node-twitter');
-var url = "http://www.winnipeg.ca/waterandwaste/sewage/service_int.stm";
-var twitterRestClient = new twitter.RestClient(process.env.consumer_key, process.env.consumer_secret, process.env.access_token_key, process.env.access_token_secret);
+var twitter = require('twitter');
+var url = "http://winnipeg.ca/waterandwaste/sewage/overflow/previous24.stm";
+
+console.log("Running dailies task -- this message is consoled in bin/dailies");
 
 
+
+var secret = {
+  consumer_key: process.env.consumer_key,
+  consumer_secret: process.env.consumer_secret,
+  access_token_key: process.env.access_token_key,
+  access_token_secret: process.env.access_token_secret
+};
+var Twitter = new twitter(secret);
 request(url, function(err, resp, body) {
     var $ = cheerio.load(body);
-    var poopDate = $('table[class=altShade] tr:nth-child(2) td:nth-child(1)');
-    var poopLocation = $('table[class=altShade] tr:nth-child(2) td:nth-child(2)');
-    var poopAmount = $('table[class=altShade] tr:nth-child(2) td:nth-child(3)');
-    var poopDuration = $('table[class=altShade] tr:nth-child(2) td:nth-child(4)');
-    var poopCause = $('table[class=altShade] tr:nth-child(2) td:nth-child(5)');
-    var updateDate = $('div [id=lastUpdateDate]');
-
-
-    //Get current year
-    var dateToday = new Date();
-    var thisYear = dateToday.getFullYear();
-
-
-    //and the page update date
-    var UpdateDateText = updateDate.text();//get date as text
-    var parseUpdateDate = new Date(UpdateDateText); // parse date
-
-    //let's deal with the date the last dump took place
-    var poopDateText = poopDate.text() + ' ' + thisYear;
-    var dateParse = new Date(poopDateText);
-
-
-    //location and amount, cause, duration
-    var poopLocationText = poopLocation.text();
-    var poopAmountText = poopAmount.text();
-    if (poopAmountText === "Unknown") {
-      poopAmountText = "an unknown amount";
+    // get Total time reported as grey (Likelihood of overflow)
+    var greytime = $('table tr:nth-child(3) td:nth-child(2)');
+    var greytimetext = greytime.text();
+    var greyTimeIsolate = greytimetext.substring(0, 5);
+    var greySplit = greyTimeIsolate.split(':');
+    var greySplitMinutes = greySplit[1];
+    var greySplitHours = greySplit[0];
+    var greyHours = parseInt(greySplitHours, 10);
+    var greyMinutes = parseInt(greySplitMinutes, 10);
+    // get Total time reported as black (High probability of overflow)
+    var blacktime = $('table tr:nth-child(4) td:nth-child(2)');
+    var blacktimetext = blacktime.text();
+    var blackTimeIsolate = blacktimetext.substring(0, 5); // truncate to get just the time
+    var blackSplit = blackTimeIsolate.split(':'); // split hour and minute
+    var blackSplitMinutes = blackSplit[1]; // get minutes
+    var blackSplitHours = blackSplit[0]; //get hours
+    var blackHours = parseInt(blackSplitHours, 10);
+    var blackMinutes = parseInt(blackSplitMinutes, 10);
+    // Grey time phrases
+    //grey hours
+    var greyTimeHours; //example: "2 hours"
+    if (greyHours == 1) {
+        greyTimeHours = greyHours + " hour "; // tweet out hour without "s"
+    } else if (greyHours > 1) {
+        greyTimeHours = greyHours + " hours "; //tweet out hours with "s"
+    } else {
+        greyTimeHours = ''; // do nothing
     }
-    var poopDurationText = poopDuration.text();
-    var poopCauseText = poopCause.text();
-
-    var gifs = ['gifs/gif_1.gif', 'gifs/gif_2.gif', 'gifs/gif_3.gif', 'gifs/gif_4.gif', 'gifs/gif_5.gif', 'gifs/gif_6.gif', 'gifs/gif_7.gif'];
-    var gif = gifs[Math.floor(Math.random() * gifs.length)];
-    
-
-
-    var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText + ' #wfp';
-
-
-  if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
-     twitterRestClient.statusesUpdateWithMedia({
-            'status': twitterText,
-            'media[]': gif
-        }, function(error, result) {
-            if (error) {
-                console.log('Error: ' + (error.code ? error.code + ' ' + error.message : error.message));
-            }
-            if (result) {
-                console.log(result);
-            }
-        });
-  console.log(twitterText);
- } else {
- 
-console.log('No new incidents.')
-
- }
-
-
+    //grey minutes
+    var greyTimeMinutes; //example: "2 minutes"
+    if (greyMinutes == 1) {
+        greyTimeMinutes = greyMinutes + " minute"; // just tweet out minutes if there is no hours value
+    } else if (greyMinutes > 1) {
+        greyTimeMinutes = greyMinutes + " minutes";
+    } else {
+        greyTimeMinutes = '';
+    }
+    //black hours
+    var blackTimeHours = ''; //example: "2 hours"
+    if (blackHours == 1) {
+        blackTimeHours = blackHours + " hour "; // tweet out hour without "s"
+    } else if (blackHours > 1) {
+        blackTimeHours = blackHours + " hours "; //tweet out hours with "s"
+    } else {
+        blackTimeHours = ''; // do nothing
+    }
+    //black minutes
+    var blackTimeMinutes; //example: "2 minutes"
+    if (blackMinutes == 1) {
+        blackTimeMinutes = blackMinutes + " minute"; // just tweet out minutes if there is no hours value
+    } else if (blackMinutes > 1) {
+        blackTimeMinutes = blackMinutes + " minutes";
+    } else {
+        blackTimeMinutes = '';
+    }
+    //calcuating time in minutes
+    var greyTotalInMinutes = (greyHours * 60) + greyMinutes;
+    var blackTotalInMinutes = (blackHours * 60) + blackMinutes;
+    //exclaims
+    var poopEmoji = String.fromCharCode(0xD83D, 0xDCA9);
+    var screamEmoji = String.fromCharCode(0xD83D, 0xDE31);
+    var maskEmoji = String.fromCharCode(0xD83D, 0xDE37);
+    var exclaims = ['Gross!', 'Bleh!', 'Ew!', 'Gah!', 'Barf!', 'Sick!', 'Yuck!', 'Foul!', 'Ack!', 'Ugh!', 'Grody!', screamEmoji, maskEmoji];
+    var exclaim = exclaims[Math.floor(Math.random() * exclaims.length)];
+    var twittertextgrey = "In the last 24 hours, sewage *may* have flowed into #Winnipeg's rivers for " + greyTimeHours + greyTimeMinutes + ". " + exclaim + " " + poopEmoji + " #wfp";
+    var twittertextblack = "In the last 24 hours, sewage *probably* flowed into #Winnipeg's rivers for " + blackTimeHours + blackTimeMinutes + ". " + exclaim + " " + poopEmoji + " #wfp";
+    if (blackTotalInMinutes === 0 && greyTotalInMinutes === 0) {
+    console.log("There is no new data");
+	
+  } else if (blackTotalInMinutes === 0 && greyTotalInMinutes > 1) {
+    Twitter.post('statuses/update', {
+        status: twittertextgrey
+    }, function(error, tweet, response) {
+        if (error) {
+            console.log(error);
+        }
+        // Raw response object.
+    });
+    console.log(twittertextgrey);
+  } else if (blackTotalInMinutes > 1 && greyTotalInMinutes === 0) {
+    Twitter.post('statuses/update', {
+        status: twittertextblack
+    }, function(error, tweet, response) {
+        if (error) {
+            console.log(error);
+        }
+    });
+    console.log(twittertextblack);
+  } else {
+    Twitter.post('statuses/update', {
+        status: twittertextblack
+    }, function(error, tweet, response) {
+        if (error) {
+            console.log(error);
+        }
+    });
+    console.log(twittertextgrey, twittertextblack);
+  }
   });
