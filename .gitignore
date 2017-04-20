@@ -1,4 +1,3 @@
-consumer_key=rOP6l7AbS9YShLnCW6Fb38YPg
-consumer_secret='hzl8snBJ7vpcQC8bjqbB9YfbGAJTeyXQFVamh52hsKkmBxb9aQ'
-access_token_key='845065226827509760-8v0QKpuJ1Mb4ELiKtb3vTxZc2GZ4UZQ'
-access_token_secret='w6J2hlmtwAUY4YwvNTEUW62Y9HSbFShZQqZ9jsIxAx4hE'
+# Ignore .env configuration files
+.env
+_env
