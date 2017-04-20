@@ -4,7 +4,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var twitter = require('node-twitter');
 var url = "http://www.winnipeg.ca/waterandwaste/sewage/service_int.stm";
-var twitterRestClient = new twitter.RestClient('rOP6l7AbS9YShLnCW6Fb38YPg', 'hzl8snBJ7vpcQC8bjqbB9YfbGAJTeyXQFVamh52hsKkmBxb9aQ', '845065226827509760-8v0QKpuJ1Mb4ELiKtb3vTxZc2GZ4UZQ', 'w6J2hlmtwAUY4YwvNTEUW62Y9HSbFShZQqZ9jsIxAx4hE');
+var twitterRestClient = new twitter.RestClient(process.env.consumer_key, process.env.consumer_secret, process.env.access_token_key, process.env.access_token_secret);
 
 
 request(url, function(err, resp, body) {
@@ -40,12 +40,12 @@ request(url, function(err, resp, body) {
     var poopDurationText = poopDuration.text();
     var poopCauseText = poopCause.text();
 
-    var gifs = ['gifs/gif(1).gif', 'gifs/gif(2).gif', 'gifs/gif(3).gif', 'gifs/gif(4).gif', 'gifs/gif(5).gif', 'gifs/gif(6).gif', 'gifs/gif(7).gif', 'gifs/gif(8).gif'];
+    var gifs = ['gifs/gif_1.gif', 'gifs/gif_2.gif', 'gifs/gif_3.gif', 'gifs/gif_4.gif', 'gifs/gif_5.gif', 'gifs/gif_6.gif', 'gifs/gif_7.gif'];
     var gif = gifs[Math.floor(Math.random() * gifs.length)];
     
 
 
-    var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText;
+    var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText + ' #wfp';
 
 
   if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
@@ -62,7 +62,9 @@ request(url, function(err, resp, body) {
         });
   console.log(twitterText);
  } else {
-  console.log("There is not a new incident of untreated sewage to report");
+ 
+console.log('No new incidents.')
+
  }
 
 
