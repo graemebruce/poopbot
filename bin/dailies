@@ -8,10 +8,13 @@ var url = "http://winnipeg.ca/waterandwaste/sewage/overflow/previous24.stm";
 console.log("Running dailies task -- this message is consoled in bin/dailies");
 
 var secret = {
-  consumer_key: 'rOP6l7AbS9YShLnCW6Fb38YPg',
-  consumer_secret: 'hzl8snBJ7vpcQC8bjqbB9YfbGAJTeyXQFVamh52hsKkmBxb9aQ',
-  access_token_key: '845065226827509760-8v0QKpuJ1Mb4ELiKtb3vTxZc2GZ4UZQ',
-  access_token_secret: 'w6J2hlmtwAUY4YwvNTEUW62Y9HSbFShZQqZ9jsIxAx4hE'
+  consumer_key: consumer_key: process.env.consumer_key,
+  consumer_secret: consumer_secret: process.env.consumer_secret,
+  access_token_key: access_token_key: process.env.access_token_key,
+  access_token_secret:access_token_secret: process.env.access_token_secret
+  
+  
+  
 };
 var Twitter = new twitter(secret);
 request(url, function(err, resp, body) {
