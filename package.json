@@ -1,7 +1,7 @@
 {
   "name": "poopbot",
   "version": "1.0.0",
-  "description": "auto tweet evert time City of Winnipeg reports sewage spilled into river",
+  "description": "Auto tweet every time City of Winnipeg reports sewage spilled into river",
 
   "dependencies": {
    "cheerio": "^0.22.0",
