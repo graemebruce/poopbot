@@ -39,11 +39,17 @@ request(url, function(err, resp, body) {
     }
     var poopDurationText = poopDuration.text();
     var poopCauseText = poopCause.text();
+    
+    var poopEmoji = String.fromCharCode(0xD83D, 0xDCA9);
+    var screamEmoji = String.fromCharCode(0xD83D, 0xDE31);
+    var maskEmoji = String.fromCharCode(0xD83D, 0xDE37);
+    var exclaims = ['Gross!', 'Bleh!', 'Ew!', 'Gah!', 'Barf!', 'Sick!', 'Yuck!', 'Foul!', 'Ack!', 'Ugh!', 'Grody!', screamEmoji, maskEmoji];
+    var exclaim = exclaims[Math.floor(Math.random() * exclaims.length)];
 
     
 
 
-    var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText;
+    var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText + " " + exclaim;
 
 
   if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
