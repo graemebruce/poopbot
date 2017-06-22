@@ -2,10 +2,14 @@
 
 var request = require('request');
 var cheerio = require('cheerio');
-var twitter = require('node-twitter');
+var twitter = require('twitter');
 var url = "http://www.winnipeg.ca/waterandwaste/sewage/service_int.stm";
-var twitterRestClient = new twitter.RestClient(process.env.consumer_key, process.env.consumer_secret, process.env.access_token_key, process.env.access_token_secret);
-
+var secret = {
+  consumer_key: process.env.consumer_key,
+  consumer_secret: process.env.consumer_secret,
+  access_token_key: process.env.access_token_key,
+  access_token_secret: process.env.access_token_secret};
+var Twitter = new twitter(secret);
 
 request(url, function(err, resp, body) {
     var $ = cheerio.load(body);
@@ -49,22 +53,20 @@ request(url, function(err, resp, body) {
     
 
 
-    var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText + " " + exclaim;
+    var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText + " " + exclaim + " " + "#wfp";
 
 
   if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
-     twitterRestClient.statusesUpdateWithMedia({
-            'status': twitterText
-        }, function(error, result) {
-            if (error) {
-                console.log('Error: ' + (error.code ? error.code + ' ' + error.message : error.message));
-            }
-            if (result) {
-                console.log(result);
-            }
-        });
-  console.log(twitterText);
- } else {
+
+    Twitter.post('statuses/update', {
+        status: twitterText
+    }, function(error, tweet, response) {
+        if (error) {
+            console.log(error);
+        }
+        // Raw response object.
+    });
+  } else {
   console.log("There is not a new incident of untreated sewage to report");
  }
 
