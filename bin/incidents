@@ -40,8 +40,6 @@ request(url, function(err, resp, body) {
     var poopDurationText = poopDuration.text();
     var poopCauseText = poopCause.text();
 
-    var gifs = ['gifs/gif_1.gif', 'gifs/gif_2.gif', 'gifs/gif_3.gif', 'gifs/gif_4.gif', 'gifs/gif_5.gif', 'gifs/gif_6.gif', 'gifs/gif_7.gif', 'gifs/gif_8.gif'];
-    var gif = gifs[Math.floor(Math.random() * gifs.length)];
     
 
 
