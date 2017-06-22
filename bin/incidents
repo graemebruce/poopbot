@@ -50,8 +50,7 @@ request(url, function(err, resp, body) {
 
   if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
      twitterRestClient.statusesUpdateWithMedia({
-            'status': twitterText,
-            'media[]': gif
+            'status': twitterText
         }, function(error, result) {
             if (error) {
                 console.log('Error: ' + (error.code ? error.code + ' ' + error.message : error.message));
