@@ -53,7 +53,7 @@ request(url, function(err, resp, body) {
     
 
 
-    var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText + " " + exclaim + " " + "#wfp";
+    var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText + ". " + exclaim + " " + "#wfp";
 
 
   if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
