@@ -40,6 +40,8 @@ request(url, function(err, resp, body) {
     var poopAmountText = poopAmount.text();
     if (poopAmountText === "Unknown") {
       poopAmountText = "an unknown amount";
+    } else {
+      poopAmountText = poopAmountText.replace("ML", "megalitres");
     }
     var poopDurationText = poopDuration.text();
     var poopCauseText = poopCause.text();
