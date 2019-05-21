@@ -41,18 +41,18 @@ request(url, function(err, resp, body) {
     if (poopAmountText === "Unknown") {
       poopAmountText = "an unknown amount";
     } else {
-      poopAmountText = poopAmountText.replace("ML", "megalitres");
+      poopAmountText = poopAmountText.replace("ML", " megalitres");
     }
     var poopDurationText = poopDuration.text();
     var poopCauseText = poopCause.text();
-    
+
     var poopEmoji = String.fromCharCode(0xD83D, 0xDCA9);
     var screamEmoji = String.fromCharCode(0xD83D, 0xDE31);
     var maskEmoji = String.fromCharCode(0xD83D, 0xDE37);
     var exclaims = ['Gross!', 'Bleh!', 'Ew!', 'Gah!', 'Barf!', 'Sick!', 'Yuck!', 'Foul!', 'Ack!', 'Ugh!', 'Grody!', screamEmoji, maskEmoji];
     var exclaim = exclaims[Math.floor(Math.random() * exclaims.length)];
 
-    
+
 
 
     var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText + ". " + exclaim + " " + "#wfp";
