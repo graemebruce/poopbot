@@ -51,15 +51,13 @@ request(url, function(err, resp, body) {
     var maskEmoji = String.fromCharCode(0xD83D, 0xDE37);
     var exclaims = ['Gross!', 'Bleh!', 'Ew!', 'Gah!', 'Barf!', 'Sick!', 'Yuck!', 'Foul!', 'Ack!', 'Ugh!', 'Grody!', screamEmoji, maskEmoji];
     var exclaim = exclaims[Math.floor(Math.random() * exclaims.length)];
-
-
-
-
     var twitterText = 'On ' + poopDateText + ', ' + poopAmountText + ' of sewage was released at ' + poopLocationText + ". " + exclaim + " " + "#wfp";
-
+  //If the information on the city's site is longer than 240 characters, tweet out a boilerplate statement
+    if (twitterText.length > 280) {
+      twitterText = "On" + poopDateText + ", sewage was released in the city's waterways."
+}
 
   if (dateToday.toDateString() === parseUpdateDate.toDateString()) {
-
     Twitter.post('statuses/update', {
         status: twitterText
     }, function(error, tweet, response) {
